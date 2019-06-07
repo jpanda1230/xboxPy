@@ -1,0 +1,74 @@
+#setting up the environment
+
+install required modules/api/dependencies
+type 'pip install xbox-webapi' in the command prompt to install xbox-webapi
+
+packages will be installed at location: C:\Users\<user_defined>AppData\Local\Programs\Python\Python36\Lib\site-packages\
+
+#create a directory to store tokens.json file
+
+usually created at the location: C:\Users\<user_defined>\AppData\Local\OpenXbox\xbox\tokens.json
+
+tokens.json file doesn't need to be created, but the folder xbox should exist; turbo.py will automatically create the tokens.json file and place it in this directory.
+
+#working on the library
+
+To claim tags, I've added additional classes in the original library; Carefully replace the following files with the files provided in the folder named `upgraded`
+
+1. from xbox/webapi/scripts/ change the authenticate.py file with the respective named file provided in the folder.
+
+2. from xbox/webapi/api/ change the client.py file with the respective named file provided in the folder.
+
+3. place the accounts.py file from the folder to location: xbox/webapi/api/provider/ 
+
+
+#changes in turbo_reversed.py
+
+add the location of tokens.json directory you created
+it should appear as below (excluding the backticks): 
+`auth_mgr = AuthenticationManager.from_file('C:/Users/<user_defined>/AppData/Local/OpenXbox/xbox/tokens.json')`
+
+#important files
+
+gamertags.txt file; The file should be placed in the same folder from where turbo.py is executed. The file contains list of tags, you wish to claim. Each line represents a target tag. No commas (,) are used in between.
+
+accounts.txt file; The file should be placed in the same folder from where turbo.py is executed. The file contains list of fresh/new accounts, you wish to claim tags for. Each line represents a microsoft account. No commas (,) are used in between.
+
+claim_log file; The file will be automatically created when the tag is claimed successfully.
+
+# starting the script
+
+>> Make sure the tokens.json file is deleted first.
+>> Clear cache and cookies from the browser.
+>> Open powershell
+>> Type: cd "C:\Users\tellg\OneDrive\Desktop\Cuba's Turbo"
+>> Type: python .\turbo_claim.py
+
+ 
+
+#Troubleshooting bad requests codes:
+
+XBoxLive error codes:
+400 - Bad API request
+401 - Unauthorized
+409 - Gamertag unavailable
+429 - Too many requests
+200 - Gamertag available
+
+XBoxLive api restricts users to send more than 10 requests in 15 secs for post and 300 requests in 50 secs for get; Proper sleep timers have been used in the scripts to avoid all such cases.
+
+#Script freezez>> 
+
+In an unlikely event of script freeze,
+>> Press ctrl-c to kill the running process on cmd.
+>> Wait for a few minutes and do nothing; Time is required for the system to restore its capabilities. (usually 5-10 mins is the idle time)
+>> Delete the tokens.json file. Location has been mentioned above for tokens.json file.
+>> Once the tokens file is deleted, open turbo_claim.py in IDLE. 
+>> Press F5
+>> As soon as the script starts running on idle, it gets unfreezed. Press ctrl-c to halt it.
+
+Go back to cmd, and start the script as instructed. Also use powershell instead of cmd.
+
+Although the script should not freeze, still i thought its better to document it.
+
+#For any issues in the future, you can reach out to www.ronnie94official.co.in
